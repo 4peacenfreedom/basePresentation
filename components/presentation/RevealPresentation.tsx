@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Reveal from 'reveal.js';
-import 'reveal.js/dist/reveal.css';
+import RevealStyles from './RevealStyles';
 
 interface RevealPresentationProps {
   children: React.ReactNode;
@@ -26,53 +25,68 @@ export default function RevealPresentation({
   navigationMode = 'default',
 }: RevealPresentationProps) {
   const deckRef = useRef<HTMLDivElement>(null);
-  const revealRef = useRef<Reveal.Api | null>(null);
+  const revealRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!deckRef.current) return;
+    // Importar Reveal.js dinámicamente solo en el cliente
+    let mounted = true;
 
-    // Inicializar Reveal.js
-    revealRef.current = new Reveal(deckRef.current, {
-      embedded: false,
-      controls,
-      progress,
-      center,
-      hash,
-      transition,
-      navigationMode,
+    const initReveal = async () => {
+      if (!deckRef.current || !mounted) return;
 
-      // Configuración de teclado
-      keyboard: true,
+      // Esperar un tick para asegurar que los estilos estén cargados
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // Overview mode
-      overview: true,
+      // Importar Reveal.js dinámicamente
+      const Reveal = (await import('reveal.js')).default;
 
-      // Responsive
-      width: 1920,
-      height: 1080,
-      margin: 0.04,
-      minScale: 0.2,
-      maxScale: 2.0,
+      // Inicializar Reveal.js
+      revealRef.current = new Reveal(deckRef.current, {
+        embedded: false,
+        controls,
+        progress,
+        center,
+        hash,
+        transition,
+        navigationMode,
 
-      // Plugins
-      plugins: [],
-    });
+        // Configuración de teclado
+        keyboard: true,
 
-    revealRef.current.initialize().then(() => {
-      console.log('Reveal.js initialized');
-    });
+        // Overview mode
+        overview: true,
 
-    // Importar tema dinámicamente
-    import(`reveal.js/dist/theme/${theme}.css`);
+        // Responsive
+        width: 1920,
+        height: 1080,
+        margin: 0.04,
+        minScale: 0.2,
+        maxScale: 2.0,
+
+        // Plugins
+        plugins: [],
+      });
+
+      await revealRef.current.initialize();
+      console.log('Reveal.js initialized successfully!');
+    };
+
+    initReveal();
 
     return () => {
-      revealRef.current?.destroy();
+      mounted = false;
+      if (revealRef.current) {
+        revealRef.current.destroy();
+      }
     };
   }, [theme, transition, controls, progress, center, hash, navigationMode]);
 
   return (
-    <div className="reveal" ref={deckRef}>
-      <div className="slides">{children}</div>
-    </div>
+    <>
+      <RevealStyles />
+      <div className="reveal" ref={deckRef}>
+        <div className="slides">{children}</div>
+      </div>
+    </>
   );
 }

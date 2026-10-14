@@ -1,0 +1,39 @@
+/* 
+  Reveal.js styles will be loaded via CDN or copied from node_modules
+  This file serves as a placeholder for custom overrides
+*/
+
+/* Custom reveal.js overrides */
+.reveal {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+}
+
+/* Asegurar que reveal.js ocupe toda la pantalla */
+html.reveal-full-page,
+html.reveal-full-page body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.reveal .slides {
+  text-align: center;
+}
+
+.reveal .slides section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
