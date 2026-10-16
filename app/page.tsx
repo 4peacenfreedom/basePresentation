@@ -17,21 +17,66 @@ export default function Home() {
             comunicación efectiva: copywriting, storytelling, design thinking,
             diseño gráfico y motion graphics.
           </p>
-          <div className="flex gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
-              href="/demo"
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-10 py-4 rounded-lg text-xl font-bold transition-transform hover:scale-105"
+              href="/create"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-12 py-5 rounded-lg text-2xl font-bold transition-all hover:scale-105 shadow-xl hover:shadow-2xl"
             >
-              Ver Demo Interactiva
+              ✨ Crear mi Presentación
             </Link>
-            <a
-              href="https://github.com/4peacenfreedom/basePresentation"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-10 py-4 rounded-lg text-xl font-bold transition-transform hover:scale-105 border-2 border-white/30"
-            >
-              GitHub
-            </a>
+            <div className="flex gap-4">
+              <Link
+                href="/demo"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-lg text-lg font-semibold transition-transform hover:scale-105 border-2 border-white/30"
+              >
+                Ver Demo
+              </Link>
+              <a
+                href="https://github.com/4peacenfreedom/basePresentation"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-lg text-lg font-semibold transition-transform hover:scale-105 border-2 border-white/30"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* How It Works */}
+        <div className="mb-24">
+          <h2 className="text-4xl font-bold mb-4 text-center text-white">
+            ¿Cómo funciona?
+          </h2>
+          <p className="text-xl text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+            5 pasos simples para crear tu presentación profesional
+          </p>
+          <div className="grid md:grid-cols-5 gap-6">
+            <StepCard
+              number="1"
+              title="Objetivo"
+              description="Define el tipo de presentación"
+            />
+            <StepCard
+              number="2"
+              title="Audiencia"
+              description="Describe tu público y tono"
+            />
+            <StepCard
+              number="3"
+              title="Visual"
+              description="Elige colores y estilo"
+            />
+            <StepCard
+              number="4"
+              title="Contenido"
+              description="Agrega tus materiales"
+            />
+            <StepCard
+              number="5"
+              title="¡Listo!"
+              description="IA genera tu presentación"
+            />
           </div>
         </div>
 
@@ -128,13 +173,13 @@ export default function Home() {
             Empieza a crear presentaciones que importan
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Combina diseño profesional con comunicación efectiva
+            Sigue 5 pasos simples y deja que la IA haga el resto
           </p>
           <Link
-            href="/demo"
-            className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-12 py-5 rounded-lg text-2xl font-bold transition-transform hover:scale-105"
+            href="/create"
+            className="inline-block bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-12 py-5 rounded-lg text-2xl font-bold transition-transform hover:scale-105 shadow-xl"
           >
-            Explora la Demo
+            🚀 Comenzar Ahora
           </Link>
         </div>
       </main>
@@ -182,6 +227,28 @@ function UseCaseCard({
       <div className="text-4xl mb-3">{emoji}</div>
       <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
       <p className="text-gray-300 text-sm">{description}</p>
+    </div>
+  );
+}
+
+function StepCard({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="relative bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-purple-400/50 transition-all hover:transform hover:scale-105">
+      <div className="absolute -top-4 left-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+        {number}
+      </div>
+      <div className="mt-4">
+        <h3 className="text-lg font-bold mb-2 text-white">{title}</h3>
+        <p className="text-gray-400 text-sm">{description}</p>
+      </div>
     </div>
   );
 }

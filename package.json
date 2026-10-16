@@ -9,8 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.134.0",
     "@types/reveal.js": "^5.2.2",
     "framer-motion": "^14.2.0",
+    "lucide-react": "^1.57.0",
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
